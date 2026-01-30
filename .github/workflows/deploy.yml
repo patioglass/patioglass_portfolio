@@ -50,7 +50,8 @@ jobs:
       - name: Copy build files
         run: |
           cp -r /tmp/build-backup/dist ./
-          git add dist -f
+          git add ./ -f
+          rm -rf /tmp/build-backup/
       
       - name: Commit and push to main
         run: |
