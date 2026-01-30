@@ -1,8 +1,16 @@
+import headerImg from '../assets/header.webp';
+import iconImg from '../assets/icon.webp';
+import homeYurikanImg from '../assets/home_yurikan.webp';
+import homeKisetsugirlImg from '../assets/home_kisetsugirl.webp';
+import homePixivImg from '../assets/home_pixiv.webp';
+import homeAdjustimerImg from '../assets/home_adjustimer.webp';
+import homeSystemImg from '../assets/home_system.webp';
+
 export const Home = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative bg-[url(/src/assets/header.webp)] bg-no-repeat bg-cover bg-top-left text-white py-20 px-4 min-h-[40vh]">
+      <section className="relative bg-no-repeat bg-cover bg-top-left text-white py-20 px-4 min-h-[40vh]" style={{ backgroundImage: `url(${headerImg})` }}>
         {/* Dark overlay for readability */}
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="container mx-auto text-center relative z-10">
@@ -59,7 +67,7 @@ export const Home = () => {
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
             <div className="flex flex-col md:flex-row items-center gap-8">
-              <img className="w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0" src="/src/assets/icon.webp" />
+              <img className="w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0" src={iconImg} />
               <div className="flex-1 text-center md:text-left">
                 <h3 className="text-2xl font-bold mb-2 text-gray-800">ぱちお(patioglass)</h3>
                 <div className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
@@ -104,7 +112,7 @@ export const Home = () => {
                 <div className="grid grid-cols-2 md:grid-cols-2 gap-6">
                   <a className="group aspect-square relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300" href="https://amzn.to/3M0cQir" target="_blank">
                     <img 
-                      src="/src/assets/home_yurikan.webp" 
+                      src={homeYurikanImg} 
                       alt="創作百合短編「百合印の缶詰」シリーズ"
                       className="w-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
@@ -114,7 +122,7 @@ export const Home = () => {
                   </a>
                   <a className="group aspect-square relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300" href="https://amzn.to/4k4BATw" target="_blank">
                     <img 
-                      src="/src/assets/home_kisetsugirl.webp" 
+                      src={homeKisetsugirlImg} 
                       alt="創作百合「キセツガール」シリーズ"
                       className="w-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
@@ -124,7 +132,7 @@ export const Home = () => {
                   </a>
                   <a className="group aspect-square relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300" href="https://www.pixiv.net/users/2188539" target="_blank">
                     <img 
-                      src="/src/assets/home_pixiv.webp" 
+                      src={homePixivImg} 
                       alt="他二次創作など（pixiv）"
                       className="w-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
@@ -146,7 +154,7 @@ export const Home = () => {
                 <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
                   <a className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300" href="https://patiopatimon.com/adjustimer/" target="_blank">
                     <img 
-                      src="/src/assets/home_adjustimer.webp" 
+                      src={homeAdjustimerImg} 
                       alt="chrome拡張「AdjusTimer」"
                       className="w-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
@@ -156,7 +164,7 @@ export const Home = () => {
                   </a>
                   <a className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300" href="https://docs.google.com/presentation/d/1EFu3dJWTUGNSdKJCvr5Zl40QUZea8nP3gxAgpiG3-hg/edit?usp=sharing" target="_blank">
                     <img 
-                      src="/src/assets/home_system.webp" 
+                      src={homeSystemImg} 
                       alt="在庫管理システム開発事例"
                       className="w-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />

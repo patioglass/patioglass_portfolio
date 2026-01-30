@@ -1,9 +1,11 @@
+import headerPartsImg from '../assets/header_parts_001.webp';
+
 export const Contact = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="flex justify-center mb-8">
         <img 
-          src="/src/assets/header_parts_001.webp" 
+          src={headerPartsImg} 
           alt="Contact Icon"
           className="w-50 h-50 object-contain rounded-full shadow-md"
         />
