@@ -8,10 +8,6 @@ export const Header = () => {
     <header className="bg-white shadow-md sticky top-0 z-50">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="text-2xl font-bold text-gray-800">
-            Portfolio
-          </Link>
-          
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -36,6 +32,7 @@ export const Header = () => {
                 Home
               </Link>
             </li>
+            {/*
             <li>
               <Link 
                 to="/works" 
@@ -52,6 +49,7 @@ export const Header = () => {
                 Bio
               </Link>
             </li>
+            */}
             <li>
               <Link 
                 to="/contact" 
@@ -75,6 +73,8 @@ export const Header = () => {
                 Home
               </Link>
             </li>
+            {/*
+
             <li>
               <Link 
                 to="/works" 
@@ -93,6 +93,7 @@ export const Header = () => {
                 Bio
               </Link>
             </li>
+            */}
             <li>
               <Link 
                 to="/contact" 

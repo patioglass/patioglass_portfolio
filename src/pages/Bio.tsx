@@ -64,7 +64,7 @@ export const Bio = () => {
                 <div className="absolute left-[47px] top-0 bottom-0 w-0.5 bg-blue-200 hidden md:block"></div>
                 
                 <div className="space-y-8">
-                  {bio.map((entry, index) => (
+                  {bio.map((entry) => (
                     <div 
                       key={entry.id}
                       className="relative flex flex-col md:flex-row md:items-start gap-4"

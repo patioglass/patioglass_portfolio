@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Home } from './pages/Home';
+/*
 import { Works } from './pages/Works';
 import { Bio } from './pages/Bio';
+*/
 import { Contact } from './pages/Contact';
 
 function App() {
@@ -12,8 +14,10 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          {/**
           <Route path="/works" element={<Works />} />
           <Route path="/bio" element={<Bio />} />
+          */}
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
