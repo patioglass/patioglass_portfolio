@@ -36,5 +36,10 @@ export const showCommissionOnlyAtom = atom<boolean>(false); // 依頼物のみ�
 export const fetchWorks = async (): Promise<Work[]> => {
   const response = await fetch('/data/works.json');
   const data = await response.json();
-  return data;
+  // dateプロパティで降順にソート（新しい日付が先）
+  return data.sort((a: Work, b: Work) => {
+    if (!a.date) return 1;
+    if (!b.date) return -1;
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
 };
