@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { bioAtom, loadingAtom } from '../store/atoms';
+import headerPartsImg from '../assets/header_parts_001.webp';
 
 // GAS APIからデータを取得する関数
 const fetchBio = async () => {
@@ -46,12 +47,19 @@ export const Bio = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
+      <div className="flex justify-center mb-8">
+        <img
+          src={headerPartsImg}
+          alt="Bio Icon"
+          className="w-50 h-50 object-contain rounded-full shadow-md"
+        />
+      </div>
+
       <div className="container mx-auto px-4">
-        <div className="mb-12">
+        <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold mb-4 text-gray-800">Bio</h1>
           <p className="text-gray-600 text-lg">これまでの活動実績と経歴をご紹介します</p>
         </div>
-        
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>

@@ -1,0 +1,69 @@
+name: Fetch Works Data from GAS API
+
+on:
+  # 毎日午前9時(JST)に実行 (UTC 0:00)
+  schedule:
+    - cron: '0 0 * * *'
+  # 手動実行も可能
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - name: Fetch Works data from GAS API
+        env:
+          GAS_API_URL: ${{ secrets.GAS_API_URL }}
+        run: |
+          mkdir -p public/data
+
+          # APIからデータ取得
+          HTTP_CODE=$(curl -L -s -w "%{http_code}" -o public/data/works.json "$GAS_API_URL")
+
+          # HTTPステータスコードチェック
+          if [ "$HTTP_CODE" -ne 200 ]; then
+            echo "Error: API returned HTTP $HTTP_CODE"
+            exit 1
+          fi
+
+          # JSONとして有効かチェック
+          if ! jq empty public/data/works.json 2>/dev/null; then
+            echo "Error: Invalid JSON response"
+            cat public/data/works.json
+            exit 1
+          fi
+
+          # 配列かつ空でないかチェック
+          LENGTH=$(jq 'length' public/data/works.json)
+          if [ "$LENGTH" -eq 0 ]; then
+            echo "Error: Empty array returned"
+            exit 1
+          fi
+
+          echo "Successfully fetched $LENGTH works"
+
+      - name: Check if data changed
+        id: check_changes
+        run: |
+          git add public/data/works.json
+          if git diff --staged --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push if changed
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "🔄 Update works data from GAS API"
+          git push
