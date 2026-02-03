@@ -6,6 +6,13 @@ on:
   push:
     branches: ["develop"]
 
+  # fetch-works-data完了後に自動実行
+  workflow_run:
+    workflows: ["Fetch Works Data from GAS API"]
+    types:
+      - completed
+    branches: ["develop"]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -25,9 +32,13 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    # workflow_runトリガーの場合は成功時のみ実行
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: develop
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Setup Node.js
