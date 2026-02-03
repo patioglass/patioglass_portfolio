@@ -61,7 +61,7 @@ jobs:
           mkdir -p /tmp/original_images
 
           # 画像APIからデータ取得
-          HTTP_CODE=$(curl -L -s -w "%{http_code}" -o /tmp/images.json "${GAS_API_URL}&action=images")
+          HTTP_CODE=$(curl -L -s -w "%{http_code}" -o /tmp/images.json "${GAS_API_URL}?action=images")
 
           # HTTPステータスコードチェック
           if [ "$HTTP_CODE" -ne 200 ]; then
