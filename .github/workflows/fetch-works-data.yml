@@ -85,11 +85,9 @@ jobs:
           else
             # 各画像をbase64デコードしてwebpに変換
             for i in $(seq 0 $((IMAGE_COUNT - 1))); do
+              FILE_NAME=$(jq -r ".[$i].name" /tmp/images.json)
               MIME_TYPE=$(jq -r ".[$i].mimeType" /tmp/images.json)
               BASE64_DATA=$(jq -r ".[$i].data" /tmp/images.json)
-
-              # ファイル番号は1から開始
-              FILE_NUM=$((i + 1))
 
               # mimeTypeから元の拡張子を決定
               case "$MIME_TYPE" in
@@ -100,8 +98,8 @@ jobs:
                 *) EXT="bin" ;;
               esac
 
-              TEMP_FILE="/tmp/original_images/${FILE_NUM}.${EXT}"
-              OUTPUT_FILE="public/images/${FILE_NUM}.webp"
+              TEMP_FILE="/tmp/original_images/${FILE_NAME}.${EXT}"
+              OUTPUT_FILE="public/images/${FILE_NAME}.webp"
 
               # base64デコードして一時ファイルに保存
               echo "$BASE64_DATA" | base64 -d > "$TEMP_FILE"
