@@ -13,6 +13,7 @@ export interface Work {
   links?: WorkLink[];
   tags?: string[];
   isCommission?: boolean; // 依頼物かどうか
+  date?: string; // 制作日（YYYY-MM-DD形式）
 }
 
 export interface BioEntry {

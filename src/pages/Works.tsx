@@ -126,7 +126,7 @@ export const Works = () => {
                 )}
                 {work.imageUrl && (
                   <img
-                    src={work.imageUrl}
+                    src={`/images/${work.id}.webp`}
                     alt={work.title}
                     className="w-full h-48 object-cover"
                   />
@@ -149,7 +149,10 @@ export const Works = () => {
                     </div>
                   )}
 
-                  <h2 className="text-xl font-bold mb-3 text-gray-800">{work.title}</h2>
+                  <h2 className="text-xl font-bold mb-1 text-gray-800">{work.title}</h2>
+                  {work.date && (
+                    <p className="text-sm text-gray-400 mb-3">{work.date.slice(0, 7)}</p>
+                  )}
                   <p className="text-gray-600 mb-4 line-clamp-3">{work.description}</p>
 
                   {/* 複数リンク表示 */}

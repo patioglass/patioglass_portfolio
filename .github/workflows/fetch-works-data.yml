@@ -50,10 +50,80 @@ jobs:
 
           echo "Successfully fetched $LENGTH works"
 
+      - name: Install webp tools
+        run: sudo apt-get update && sudo apt-get install -y webp
+
+      - name: Fetch Images from GAS API
+        env:
+          GAS_API_URL: ${{ secrets.GAS_API_URL }}
+        run: |
+          mkdir -p public/images
+          mkdir -p /tmp/original_images
+
+          # 画像APIからデータ取得
+          HTTP_CODE=$(curl -L -s -w "%{http_code}" -o /tmp/images.json "${GAS_API_URL}&action=images")
+
+          # HTTPステータスコードチェック
+          if [ "$HTTP_CODE" -ne 200 ]; then
+            echo "Error: Images API returned HTTP $HTTP_CODE"
+            exit 1
+          fi
+
+          # JSONとして有効かチェック
+          if ! jq empty /tmp/images.json 2>/dev/null; then
+            echo "Error: Invalid JSON response from images API"
+            cat /tmp/images.json
+            exit 1
+          fi
+
+          # 画像の数を取得
+          IMAGE_COUNT=$(jq 'length' /tmp/images.json)
+          echo "Found $IMAGE_COUNT images"
+
+          if [ "$IMAGE_COUNT" -eq 0 ]; then
+            echo "No images to process"
+          else
+            # 各画像をbase64デコードしてwebpに変換
+            for i in $(seq 0 $((IMAGE_COUNT - 1))); do
+              MIME_TYPE=$(jq -r ".[$i].mimeType" /tmp/images.json)
+              BASE64_DATA=$(jq -r ".[$i].data" /tmp/images.json)
+
+              # ファイル番号は1から開始
+              FILE_NUM=$((i + 1))
+
+              # mimeTypeから元の拡張子を決定
+              case "$MIME_TYPE" in
+                "image/webp") EXT="webp" ;;
+                "image/jpeg") EXT="jpg" ;;
+                "image/png") EXT="png" ;;
+                "image/gif") EXT="gif" ;;
+                *) EXT="bin" ;;
+              esac
+
+              TEMP_FILE="/tmp/original_images/${FILE_NUM}.${EXT}"
+              OUTPUT_FILE="public/images/${FILE_NUM}.webp"
+
+              # base64デコードして一時ファイルに保存
+              echo "$BASE64_DATA" | base64 -d > "$TEMP_FILE"
+
+              # webpに変換（既にwebpの場合はコピー）
+              if [ "$MIME_TYPE" = "image/webp" ]; then
+                cp "$TEMP_FILE" "$OUTPUT_FILE"
+              else
+                cwebp -q 80 "$TEMP_FILE" -o "$OUTPUT_FILE"
+              fi
+
+              echo "Converted and saved: $OUTPUT_FILE"
+            done
+
+            echo "Successfully converted and saved $IMAGE_COUNT images as webp"
+          fi
+
       - name: Check if data changed
         id: check_changes
         run: |
           git add public/data/works.json
+          git add public/images/
           if git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
@@ -65,5 +135,5 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -m "🔄 Update works data from GAS API"
+          git commit -m "🔄 Update works data and images from GAS API"
           git push
