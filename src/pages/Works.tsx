@@ -126,7 +126,7 @@ export const Works = () => {
                 )}
                 {work.imageUrl && (
                   <img
-                    src={`/images/${work.id}.webp`}
+                    src={`/images/${work.imageUrl.split('=').pop()}.webp`}
                     alt={work.title}
                     className="w-full h-48 object-cover"
                   />
