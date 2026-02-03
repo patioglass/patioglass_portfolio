@@ -3,19 +3,19 @@ import headerPartsImg from '../assets/header_parts_001.webp';
 export const Contact = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
-      <div className="flex justify-center mb-8">
-        <img 
-          src={headerPartsImg} 
+      <div className="flex items-center justify-center gap-6 mb-8">
+        <img
+          src={headerPartsImg}
           alt="Contact Icon"
-          className="w-50 h-50 object-contain rounded-full shadow-md"
+          className="w-40 h-40 object-contain rounded-full shadow-md"
         />
-      </div>
-      <div className="container mx-auto px-4">
-        <div className="mb-12 text-center">
+        <div className="text-center md:text-left">
           <h1 className="text-4xl font-bold mb-4 text-gray-800">Contact</h1>
           <p className="text-gray-600 text-lg">お気軽にお問い合わせください</p>
         </div>
-        
+      </div>
+
+      <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto">
           <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
             <p className="text-gray-700 mb-8 leading-relaxed">

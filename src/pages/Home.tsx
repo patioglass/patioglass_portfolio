@@ -1,3 +1,6 @@
+import { useNavigate } from 'react-router-dom';
+import { useSetAtom } from 'jotai';
+import { selectedTagAtom } from '../store/atoms';
 import headerImg from '../assets/header.webp';
 import iconImg from '../assets/icon.webp';
 import homeYurikanImg from '../assets/home_yurikan.webp';
@@ -7,12 +10,20 @@ import homeAdjustimerImg from '../assets/home_adjustimer.webp';
 import homeSystemImg from '../assets/home_system.webp';
 
 export const Home = () => {
+  const navigate = useNavigate();
+  const setSelectedTag = useSetAtom(selectedTagAtom);
+
+  const handleSeeMore = (tag: string) => {
+    setSelectedTag(tag);
+    navigate('/works');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative bg-no-repeat bg-cover bg-top-left text-white py-20 px-4 min-h-[40vh]" style={{ backgroundImage: `url(${headerImg})` }}>
+      <section className="relative bg-no-repeat bg-cover bg-top-left text-white py-20 px-4 max-h-[33vh]" style={{ backgroundImage: `url(${headerImg})` }}>
         {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
         <div className="container mx-auto text-center relative z-10">
           <h1 className="text-2xl md:text-7xl font-extrabold mb-6 tracking-tight drop-shadow-2xl">
             PatioGlass Official Site
@@ -20,39 +31,39 @@ export const Home = () => {
           <p className="text-xl md:text-md font-light tracking-wide drop-shadow-lg mb-8">
             ぱちおに関する公式サイトです。「PatioGlass」の活動記録など
           </p>
-          
+
           {/* SNS Links */}
           <div className="flex justify-center items-center gap-4 mt-6">
-            <a 
-              href="https://x.com/patioglass" 
-              target="_blank" 
+            <a
+              href="https://x.com/patioglass"
+              target="_blank"
               rel="noopener noreferrer"
               className="w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-all hover:scale-110 shadow-lg"
               aria-label="Twitter"
             >
               <span className="text-black text-2xl">𝕏</span>
             </a>
-            <a 
-              href="https://www.pixiv.net/users/2188539" 
-              target="_blank" 
+            <a
+              href="https://www.pixiv.net/users/2188539"
+              target="_blank"
               rel="noopener noreferrer"
               className="w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-all hover:scale-110 shadow-lg"
               aria-label="Pixiv"
             >
               <span className="text-blue-500 font-bold text-xl">pixiv</span>
             </a>
-            <a 
-              href="https://www.youtube.com/@PatioGlass_Official_Music" 
-              target="_blank" 
+            <a
+              href="https://www.youtube.com/@PatioGlass_Official_Music"
+              target="_blank"
               rel="noopener noreferrer"
               className="w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-all hover:scale-110 shadow-lg"
               aria-label="YouTube"
             >
               <span className="text-red-600 text-2xl">▶</span>
             </a>
-            <a 
-              href="https://patioglass.fanbox.cc/" 
-              target="_blank" 
+            <a
+              href="https://patioglass.fanbox.cc/"
+              target="_blank"
               rel="noopener noreferrer"
               className="w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-all hover:scale-110 shadow-lg"
               aria-label="FANBOX"
@@ -63,7 +74,7 @@ export const Home = () => {
         </div>
       </section>
       {/* Profile Section */}
-      <section className="container mx-auto px-4 py-16">
+      <section className="container mx-auto px-4 py-4">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
             <div className="flex flex-col md:flex-row items-center gap-8">
@@ -71,9 +82,9 @@ export const Home = () => {
               <div className="flex-1 text-center md:text-left">
                 <h3 className="text-2xl font-bold mb-2 text-gray-800">ぱちお(patioglass)</h3>
                 <div className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
-                  <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">絵・漫画</span>
-                  <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">プログラミング</span>
-                  <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-medium">音楽</span>
+                  <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-medium">絵・漫画</span>
+                  <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">プログラミング</span>
+                  <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">音楽</span>
                 </div>
                 <p className="text-gray-700 leading-relaxed">
                     「PatioGlass」で活動中。イラストや漫画の制作、Web開発、音楽制作など多岐にわたる分野で活動しています。<br />
@@ -81,24 +92,24 @@ export const Home = () => {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="mt-8 text-center">
-            <a 
-              href="https://forms.gle/ca1hva36dk2W5MT7A" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-slate-500 to-pink-500 hover:from-slate-600 hover:to-pink-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-            >
-              <span>📝</span>
-              <span>ご依頼・お問い合わせ</span>
-            </a>
+            <div className="mt-4 text-right">
+              <a
+                href="https://forms.gle/ca1hva36dk2W5MT7A"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-slate-500 to-pink-500 hover:from-slate-600 hover:to-pink-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+              >
+                <span>📝</span>
+                <span>ご依頼・お問い合わせ</span>
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Overview Section - 4 Grid */}
       <section className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-8 text-gray-800 relative pb-3 inline-block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-35 after:h-1 after:bg-gradient-to-r after:from-slate-400 after:to-pink-400 after:rounded-full">やってること</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow">
@@ -111,8 +122,8 @@ export const Home = () => {
               <div className="max-w-6xl mx-auto mt-6">
                 <div className="grid grid-cols-2 md:grid-cols-2 gap-6">
                   <a className="group aspect-square relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300" href="https://amzn.to/3M0cQir" target="_blank">
-                    <img 
-                      src={homeYurikanImg} 
+                    <img
+                      src={homeYurikanImg}
                       alt="創作百合短編「百合印の缶詰」シリーズ"
                       className="w-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
@@ -121,8 +132,8 @@ export const Home = () => {
                     </div>
                   </a>
                   <a className="group aspect-square relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300" href="https://amzn.to/4k4BATw" target="_blank">
-                    <img 
-                      src={homeKisetsugirlImg} 
+                    <img
+                      src={homeKisetsugirlImg}
                       alt="創作百合「キセツガール」シリーズ"
                       className="w-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
@@ -131,8 +142,8 @@ export const Home = () => {
                     </div>
                   </a>
                   <a className="group aspect-square relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300" href="https://www.pixiv.net/users/2188539" target="_blank">
-                    <img 
-                      src={homePixivImg} 
+                    <img
+                      src={homePixivImg}
                       alt="他二次創作など（pixiv）"
                       className="w-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
@@ -141,6 +152,17 @@ export const Home = () => {
                     </div>
                   </a>
                 </div>
+              </div>
+              <div className="mt-4 text-right">
+                <button
+                  onClick={() => handleSeeMore('絵・漫画')}
+                  className="text-pink-600 hover:text-pink-800 font-medium text-sm inline-flex items-center gap-1 transition-colors"
+                >
+                  もっとみる
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
             </div>
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow">
@@ -153,8 +175,8 @@ export const Home = () => {
               <div className="max-w-6xl mx-auto mt-6">
                 <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
                   <a className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300" href="https://patiopatimon.com/adjustimer/" target="_blank">
-                    <img 
-                      src={homeAdjustimerImg} 
+                    <img
+                      src={homeAdjustimerImg}
                       alt="chrome拡張「AdjusTimer」"
                       className="w-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
@@ -163,8 +185,8 @@ export const Home = () => {
                     </div>
                   </a>
                   <a className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300" href="https://docs.google.com/presentation/d/1EFu3dJWTUGNSdKJCvr5Zl40QUZea8nP3gxAgpiG3-hg/edit?usp=sharing" target="_blank">
-                    <img 
-                      src={homeSystemImg} 
+                    <img
+                      src={homeSystemImg}
                       alt="在庫管理システム開発事例"
                       className="w-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
@@ -174,8 +196,18 @@ export const Home = () => {
                   </a>
                 </div>
               </div>
+              <div className="mt-4 text-right">
+                <button
+                  onClick={() => handleSeeMore('プログラミング')}
+                  className="text-blue-600 hover:text-blue-800 font-medium text-sm inline-flex items-center gap-1 transition-colors"
+                >
+                  もっとみる
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
             </div>
-            
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow">
               <div className="mb-8">
                 <h3 className="text-xl font-bold mb-3 text-gray-800">音楽</h3>
@@ -185,17 +217,28 @@ export const Home = () => {
               </div>
               <div className="max-w-6xl mx-auto mt-6">
                 <div className="aspect-video rounded-lg overflow-hidden shadow-lg">
-                  <iframe 
-                    width="100%" 
-                    height="100%" 
-                    src="https://www.youtube.com/embed/_CcGFyjWnS0?si=w9LWHYBFbsDFD9oI" 
-                    title="YouTube video player" 
-                    frameBorder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/_CcGFyjWnS0?si=w9LWHYBFbsDFD9oI"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     className="w-full h-full"
                   ></iframe>
                 </div>
+              </div>
+              <div className="mt-4 text-right">
+                <button
+                  onClick={() => handleSeeMore('音楽')}
+                  className="text-purple-600 hover:text-purple-800 font-medium text-sm inline-flex items-center gap-1 transition-colors"
+                >
+                  もっとみる
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -204,7 +247,7 @@ export const Home = () => {
 
       {/* Image Gallery Section */}
       <section className="container mx-auto px-4 py-16">
-        
+
       </section>
     </div>
   );

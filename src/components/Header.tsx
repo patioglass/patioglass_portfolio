@@ -1,13 +1,25 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useSetAtom } from 'jotai';
+import { selectedTagAtom, tagOptions } from '../store/atoms';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isWorksOpen, setIsWorksOpen] = useState(false);
+  const setSelectedTag = useSetAtom(selectedTagAtom);
+  const navigate = useNavigate();
+
+  const handleTagClick = (tag: string) => {
+    setSelectedTag(tag);
+    navigate('/works');
+    setIsMenuOpen(false);
+    setIsWorksOpen(false);
+  };
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      <nav className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+    <header className="bg-white sticky top-0 z-50">
+      <nav className="container mx-auto max-w-6xl px-4 py-4">
+        <div className="flex items-center justify-start md:justify-center">
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -23,39 +35,63 @@ export const Header = () => {
           </button>
 
           {/* Desktop menu */}
-          <ul className="hidden md:flex space-x-6">
+          <ul className="hidden md:flex space-x-18" style={{ fontFamily: "'Nunito', sans-serif" }}>
             <li>
-              <Link 
-                to="/" 
-                className="text-gray-600 hover:text-gray-900 transition-colors"
+              <Link
+                to="/"
+                className="flex flex-col items-center text-gray-600 hover:text-gray-900 transition-colors tracking-wider"
               >
-                Home
+                <span className="text-lg">Home</span>
+                <span className="text-gray-400 text-xs">トップ</span>
               </Link>
+            </li>
+            {/* Works with dropdown */}
+            <li className="relative">
+              <button
+                onClick={() => setIsWorksOpen(!isWorksOpen)}
+                className="flex flex-col items-center text-gray-600 hover:text-gray-900 transition-colors tracking-wider"
+              >
+                <span className="text-lg flex items-center gap-1">
+                  Works
+                  <svg className={`w-4 h-4 transition-transform ${isWorksOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+                <span className="text-gray-400 text-xs">作品</span>
+              </button>
+              {/* Dropdown menu */}
+              {isWorksOpen && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-2 min-w-[140px] z-50">
+                  {tagOptions.map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => handleTagClick(tag)}
+                      className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors text-sm"
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              )}
             </li>
             {/*
             <li>
-              <Link 
-                to="/works" 
-                className="text-gray-600 hover:text-gray-900 transition-colors"
+              <Link
+                to="/bio"
+                className="flex flex-col items-center text-gray-600 hover:text-gray-900 transition-colors tracking-wider"
               >
-                Works
-              </Link>
-            </li>
-            <li>
-              <Link 
-                to="/bio" 
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Bio
+                <span className="text-lg">Bio</span>
+                <span className="text-gray-400 text-xs">経歴</span>
               </Link>
             </li>
             */}
             <li>
-              <Link 
-                to="/contact" 
-                className="text-gray-600 hover:text-gray-900 transition-colors"
+              <Link
+                to="/contact"
+                className="flex flex-col items-center text-gray-600 hover:text-gray-900 transition-colors tracking-wider"
               >
-                Contact
+                <span className="text-lg">Contact</span>
+                <span className="text-gray-400 text-xs">お問い合わせ</span>
               </Link>
             </li>
           </ul>
@@ -63,44 +99,65 @@ export const Header = () => {
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <ul className="md:hidden mt-4 space-y-2 pb-4">
+          <ul className="md:hidden mt-4 space-y-2 pb-4" style={{ fontFamily: "'Nunito', sans-serif" }}>
             <li>
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 onClick={() => setIsMenuOpen(false)}
-                className="block text-gray-600 hover:text-gray-900 py-2"
+                className="flex flex-col text-gray-600 hover:text-gray-900 py-2 tracking-wider font-medium"
               >
-                Home
+                <span className="text-lg">Home</span>
+                <span className="text-gray-400 text-xs">トップ</span>
               </Link>
+            </li>
+            {/* Works accordion for mobile */}
+            <li>
+              <button
+                onClick={() => setIsWorksOpen(!isWorksOpen)}
+                className="flex flex-col w-full text-left text-gray-600 hover:text-gray-900 py-2 tracking-wider font-medium"
+              >
+                <span className="text-lg flex items-center gap-1">
+                  Works
+                  <svg className={`w-4 h-4 transition-transform ${isWorksOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+                <span className="text-gray-400 text-xs">作品</span>
+              </button>
+              {isWorksOpen && (
+                <div className="pl-4 mt-2 space-y-1 border-l-2 border-gray-200">
+                  {tagOptions.map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => handleTagClick(tag)}
+                      className="block w-full text-left py-1.5 text-gray-600 hover:text-gray-900 transition-colors text-sm"
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              )}
             </li>
             {/*
-
             <li>
-              <Link 
-                to="/works" 
+              <Link
+                to="/bio"
                 onClick={() => setIsMenuOpen(false)}
-                className="block text-gray-600 hover:text-gray-900 py-2"
+                className="flex flex-col text-gray-600 hover:text-gray-900 py-2 tracking-wider font-medium"
               >
-                Works
-              </Link>
-            </li>
-            <li>
-              <Link 
-                to="/bio" 
-                onClick={() => setIsMenuOpen(false)}
-                className="block text-gray-600 hover:text-gray-900 py-2"
-              >
-                Bio
+                <span className="text-lg">Bio</span>
+                <span className="text-gray-400 text-xs">経歴</span>
               </Link>
             </li>
             */}
             <li>
-              <Link 
-                to="/contact" 
+              <Link
+                to="/contact"
                 onClick={() => setIsMenuOpen(false)}
-                className="block text-gray-600 hover:text-gray-900 py-2"
+                className="flex flex-col text-gray-600 hover:text-gray-900 py-2 tracking-wider font-medium"
               >
-                Contact
+                <span className="text-lg">Contact</span>
+                <span className="text-gray-400 text-xs">お問い合わせ</span>
               </Link>
             </li>
           </ul>
