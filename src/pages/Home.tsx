@@ -155,7 +155,7 @@ export const Home = () => {
               </div>
               <div className="mt-4 text-right">
                 <button
-                  onClick={() => handleSeeMore('漫画')}
+                  onClick={() => handleSeeMore('絵・漫画')}
                   className="text-pink-600 hover:text-pink-800 font-medium text-sm inline-flex items-center gap-1 transition-colors"
                 >
                   もっとみる

@@ -5,7 +5,7 @@ import headerPartsImg from '../assets/header_parts_002.webp';
 
 // タグごとのスタイル定義
 const tagStyles: Record<string, { bg: string; text: string; border: string }> = {
-  '漫画': { bg: 'bg-pink-100', text: 'text-pink-700', border: 'border-pink-300' },
+  '絵・漫画': { bg: 'bg-pink-100', text: 'text-pink-700', border: 'border-pink-300' },
   '音楽': { bg: 'bg-purple-100', text: 'text-purple-700', border: 'border-purple-300' },
   'プログラミング': { bg: 'bg-blue-100', text: 'text-blue-700', border: 'border-blue-300' },
   'その他': { bg: 'bg-gray-100', text: 'text-gray-700', border: 'border-gray-300' },

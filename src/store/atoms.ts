@@ -22,7 +22,7 @@ export interface BioEntry {
 }
 
 // タグの選択肢
-export const tagOptions = ['すべて', '漫画', '音楽', 'プログラミング', 'その他'] as const;
+export const tagOptions = ['すべて', '絵・漫画', '音楽', 'プログラミング', 'その他'] as const;
 
 export const worksAtom = atom<Work[]>([]);
 export const bioAtom = atom<BioEntry[]>([]);
