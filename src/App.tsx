@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useSetAtom, useAtomValue } from 'jotai';
 import { Home } from './pages/Home';
 import { Works } from './pages/Works';
@@ -7,6 +7,17 @@ import { Works } from './pages/Works';
 import { Contact } from './pages/Contact';
 import { Header } from './components/Header';
 import { worksAtom, fetchWorks } from './store/atoms';
+
+// ルート変更時にページトップへスクロール
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 // アプリ起動時にデータを取得する初期化コンポーネント
 const DataInitializer = ({ children }: { children: React.ReactNode }) => {
@@ -25,6 +36,7 @@ const DataInitializer = ({ children }: { children: React.ReactNode }) => {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <DataInitializer>
         <div className="min-h-screen bg-gray-50">
           <Header />
