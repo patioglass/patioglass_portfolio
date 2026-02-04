@@ -55,6 +55,23 @@ export const Contact = () => {
                   <p className="text-gray-500 text-sm mt-1">最新情報はこちらで発信中</p>
                 </div>
               </div>
+              
+              <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors">
+                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-orange-600 text-2xl font-bold">💝</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-800 mb-1">FANBOX</h3>
+                  <a
+                    href="https://patioglass.fanbox.cc/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-700 transition-colors"
+                  >
+                    patioglass.fanbox.cc
+                  </a>
+                </div>
+              </div>
             </div>
 
             <div className="mt-8 text-center">
