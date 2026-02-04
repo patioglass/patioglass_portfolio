@@ -19,7 +19,7 @@ export const Contact = () => {
         <div className="max-w-2xl mx-auto">
           <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
             <p className="text-gray-700 mb-8 leading-relaxed">
-              お仕事のご依頼やお問い合わせは、以下の連絡先よりお気軽にご連絡ください。
+              お仕事のご依頼やお問い合わせは、以下の連絡先、またはフォームよりお気軽にご連絡ください。
             </p>
             
             <div className="space-y-6">
@@ -35,7 +35,6 @@ export const Contact = () => {
                   >
                     patiopatimon@gmail.com
                   </a>
-                  <p className="text-gray-500 text-sm mt-1">お仕事のご依頼はこちらへ</p>
                 </div>
               </div>
               

@@ -151,7 +151,7 @@ export const Home = () => {
             </ul>
             <div className="mt-6 text-center">
               <button
-                onClick={() => navigate('/works')}
+                onClick={() => handleSeeMore('すべて')}
                 className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300"
               >
                 <span>すべての作品を見る</span>
@@ -166,14 +166,17 @@ export const Home = () => {
 
       {/* Overview Section - 4 Grid */}
       <section className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold mb-8 text-gray-800 relative pb-3 inline-block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-35 after:h-1 after:bg-gradient-to-r after:from-slate-400 after:to-pink-400 after:rounded-full">やってること</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow">
               <div className="mb-8">
-                <h3 className="text-xl font-bold mb-3 text-gray-800">絵/漫画</h3>
+                <h3 className="text-xl font-bold mb-3 text-gray-800">絵・漫画</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  イラストや漫画の制作。創作百合中心。 同人誌即売会への参加や各種プラットフォームでの公開も行っています。
+                  イラストや漫画の制作。創作百合中心。<br />
+                  コミケやコミティアによく出没します。他　CDジャケットなどのイラスト依頼。<br />
+                  二次創作を含めたジャンルなどの詳細は
+                  <a href="https://profcard.info/u/hM0tVGzI1DhfCkLBQ8YyhnlF7gr2" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline font-medium transition-colors">コチラ</a>をご確認ください。
                 </p>
               </div>
               <div className="max-w-6xl mx-auto mt-6">
@@ -210,12 +213,12 @@ export const Home = () => {
                   </a>
                 </div>
               </div>
-              <div className="mt-4 text-right">
+              <div className="mt-6 text-center">
                 <button
                   onClick={() => handleSeeMore('絵・漫画')}
-                  className="text-pink-600 hover:text-pink-800 font-medium text-sm inline-flex items-center gap-1 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-2 bg-gray-800 hover:bg-gray-700 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300"
                 >
-                  もっとみる
+                  <span>もっとみる</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -253,12 +256,12 @@ export const Home = () => {
                   </a>
                 </div>
               </div>
-              <div className="mt-4 text-right">
+              <div className="mt-6 text-center">
                 <button
                   onClick={() => handleSeeMore('プログラミング')}
-                  className="text-blue-600 hover:text-blue-800 font-medium text-sm inline-flex items-center gap-1 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-2 bg-gray-800 hover:bg-gray-700 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300"
                 >
-                  もっとみる
+                  <span>もっとみる</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -286,12 +289,12 @@ export const Home = () => {
                   ></iframe>
                 </div>
               </div>
-              <div className="mt-4 text-right">
+              <div className="mt-6 text-center">
                 <button
                   onClick={() => handleSeeMore('音楽')}
-                  className="text-purple-600 hover:text-purple-800 font-medium text-sm inline-flex items-center gap-1 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-2 bg-gray-800 hover:bg-gray-700 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300"
                 >
-                  もっとみる
+                  <span>もっとみる</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
