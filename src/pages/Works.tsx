@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { worksAtom, loadingAtom, selectedTagAtom, tagOptions, showCommissionOnlyAtom, fetchWorks, getTagColor } from '../store/atoms';
+import { worksAtom, loadingAtom, selectedTagAtom, tagOptions, showCommissionOnlyAtom, includeSecondaryCreationAtom, fetchWorks, getTagColor } from '../store/atoms';
 import headerPartsImg from '../assets/header_parts_002.webp';
 
 
@@ -9,12 +9,16 @@ export const Works = () => {
   const [loading, setLoading] = useAtom(loadingAtom);
   const [selectedTag, setSelectedTag] = useAtom(selectedTagAtom);
   const [showCommissionOnly, setShowCommissionOnly] = useAtom(showCommissionOnlyAtom);
+  const [includeSecondaryCreation, setIncludeSecondaryCreation] = useAtom(includeSecondaryCreationAtom);
 
   // タグと依頼物フィルターでフィルタリング
   const filteredWorks = works.filter(work => {
     const matchesTag = selectedTag === 'すべて' || work.tags?.includes(selectedTag);
     const matchesCommission = !showCommissionOnly || work.isCommission === true;
-    return matchesTag && matchesCommission;
+    // tagsに「二次創作」が含まれているかどうかで判定
+    const isSecondary = work.tags?.includes('二次創作') || false;
+    const matchesSecondaryCreation = includeSecondaryCreation || !isSecondary;
+    return matchesTag && matchesCommission && matchesSecondaryCreation;
   });
 
   useEffect(() => {
@@ -45,7 +49,7 @@ export const Works = () => {
         />
         <div className="text-center md:text-left">
           <h1 className="text-4xl font-bold mb-4 text-gray-800">Works</h1>
-          <p className="text-gray-600 text-lg">これまでに手がけた公開可能な制作物</p>
+          <p className="text-gray-600 text-lg">これまでに作ったもの</p>
         </div>
       </div>
 
@@ -74,6 +78,17 @@ export const Works = () => {
               className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
             />
             <span className="text-gray-700">依頼物のみ表示</span>
+          </label>
+          
+          {/* 二次創作フィルター */}
+          <label className="flex items-center gap-2 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={includeSecondaryCreation}
+              onChange={(e) => setIncludeSecondaryCreation(e.target.checked)}
+              className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+            />
+            <span className="text-gray-700">二次創作を含める</span>
           </label>
         </div>
 
