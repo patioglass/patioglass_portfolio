@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { useSetAtom } from 'jotai';
-import { selectedTagAtom } from '../store/atoms';
+import { useAtom, useSetAtom } from 'jotai';
+import { selectedTagAtom, worksAtom, fetchWorks, getTagColor } from '../store/atoms';
+import { useEffect } from 'react';
 import headerImg from '../assets/header.webp';
 import iconImg from '../assets/icon.webp';
 import homeYurikanImg from '../assets/home_yurikan.webp';
@@ -12,6 +13,15 @@ import homeSystemImg from '../assets/home_system.webp';
 export const Home = () => {
   const navigate = useNavigate();
   const setSelectedTag = useSetAtom(selectedTagAtom);
+  const [works, setWorks] = useAtom(worksAtom);
+
+  useEffect(() => {
+    const loadWorks = async () => {
+      const data = await fetchWorks();
+      setWorks(data);
+    };
+    loadWorks();
+  }, [setWorks]);
 
   const handleSeeMore = (tag: string) => {
     setSelectedTag(tag);
@@ -21,7 +31,7 @@ export const Home = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative bg-no-repeat bg-cover bg-top-left text-white py-20 px-4 max-h-[33vh]" style={{ backgroundImage: `url(${headerImg})` }}>
+      <section className="relative bg-no-repeat bg-cover bg-top-left text-white py-20 px-4 min-h-[33vh]" style={{ backgroundImage: `url(${headerImg})` }}>
         {/* Dark overlay for readability */}
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="container mx-auto text-center relative z-10">
@@ -107,6 +117,53 @@ export const Home = () => {
         </div>
       </section>
 
+      {/* Recent Works Section */}
+      <section className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold mb-6 text-gray-800 relative pb-3 inline-block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-20 after:h-1 after:bg-gradient-to-r after:from-blue-400 after:to-purple-400 after:rounded-full">
+            最近の作品
+          </h2>
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <ul className="space-y-4">
+              {works.slice(0, 3).map((work) => (
+                <li key={work.id} className="border-l-4 border-blue-400 pl-4 py-2 hover:bg-gray-50 transition-colors">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                        <span className="text-sm text-gray-500 font-medium min-w-[100px]">
+                          {work.date || '日付未定'}
+                        </span>
+                        {work.tags && work.tags.length > 0 && (
+                          <span className={`inline-block px-2 py-1 text-xs rounded ${getTagColor(work.tags[0])}`}>
+                            {work.tags[0]}
+                          </span>
+                        )}
+                        <h3 className="font-bold text-gray-800">{work.title}</h3>
+
+                      </div>
+                      <p className="text-sm text-gray-600 mt-1 pl-0 sm:pl-[100px]">
+                        {work.description}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 text-center">
+              <button
+                onClick={() => navigate('/works')}
+                className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+              >
+                <span>すべての作品を見る</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Overview Section - 4 Grid */}
       <section className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
@@ -169,7 +226,7 @@ export const Home = () => {
               <div className="mb-8">
                 <h3 className="text-xl font-bold mb-3 text-gray-800">プログラミング</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Web制作中心、他chrome拡張などのアプリ開発。要件定義からデザイン、実装、運用まで対応など要相談。
+                  Web制作中心(Spring, React etc...)、他chrome拡張などのアプリ開発。要件定義からデザイン、実装、運用まで対応など要相談。
                 </p>
               </div>
               <div className="max-w-6xl mx-auto mt-6">
